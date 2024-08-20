@@ -1,0 +1,33 @@
+{
+  "name": "react",
+  "version": "1.0.0",
+  "description": "This is Namaste React Tutorial",
+  "scripts": {
+    "dev": "parcel index.html",
+    "build": "parcel build index.html",
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Zahir001/react-dev-01.git"
+  },
+  "keywords": [],
+  "author": "Zahir",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Zahir001/react-dev-01/issues"
+  },
+  "homepage": "https://github.com/Zahir001/react-dev-01#readme",
+  "devDependencies": {
+    "parcel": "^2.12.0",
+    "process": "^0.11.10"
+  },
+  "dependencies": {
+    "@parcel/core": "^2.12.0",
+    "react": "file:",
+    "react-dom": "^18.3.1"
+  },
+  "browserslist": [
+    "last 2 version"
+  ]
+}
