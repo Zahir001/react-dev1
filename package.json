@@ -1,7 +1,7 @@
 {
-  "name": "react",
+  "name": "react-dev1",
   "version": "1.0.0",
-  "description": "This is Namaste React Tutorial",
+  "description": "This is Namaste React Course",
   "scripts": {
     "dev": "parcel index.html",
     "build": "parcel build index.html",
@@ -9,25 +9,29 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Zahir001/react-dev-01.git"
+    "url": "git+https://github.com/Zahir001/react-dev1.git"
   },
-  "keywords": [],
-  "author": "Zahir",
+  "keywords": [
+    "react",
+    "course"
+  ],
+  "author": "Zahir alam",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Zahir001/react-dev-01/issues"
+    "url": "https://github.com/Zahir001/react-dev1/issues"
   },
-  "homepage": "https://github.com/Zahir001/react-dev-01#readme",
+  "homepage": "https://github.com/Zahir001/react-dev1#readme",
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dev1": "file:",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.26.1"
+  },
   "devDependencies": {
     "parcel": "^2.12.0",
     "process": "^0.11.10"
   },
-  "dependencies": {
-    "@parcel/core": "^2.12.0",
-    "react": "file:",
-    "react-dom": "^18.3.1"
-  },
-  "browserslist": [
-    "last 2 version"
+  "browserlist": [
+    "last 2 versions"
   ]
 }
