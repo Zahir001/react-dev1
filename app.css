@@ -1,4 +1,7 @@
-.header {
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+/* .header {
   display: flex;
   justify-content: space-between;
   border: 1px solid black;
@@ -8,8 +11,6 @@
 
 .logo-container img {
   width: 100px;
-  /* mix-blend-mode: color-burn; */
-  /* filter: brightness(0) invert(1); */
 }
 
 .nav-items>ul {
@@ -30,8 +31,6 @@
 
 .res-card {
   width: 200px;
-  /* height: 400px; */
-
   background-color: #f0f0f0;
   padding: 5px;
   margin: 5px;
@@ -85,4 +84,4 @@
 }
 .detailCardText{
   width: 100%;
-}
+} */

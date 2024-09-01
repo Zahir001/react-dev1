@@ -2,70 +2,54 @@ import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import { INFO_CDN, infoImage_CDN, RESINFO_URL } from "../utils/constants";
 import { useParams } from "react-router-dom";
+import useRestaurantsMenu from "../utils/useRestaurantsMenu";
+import RestaurantCategory from "./RestaurantCategory";
 
 const RestaurantsMenu = () => {
-    const [resInfo, setResInfo] = useState([]);
     const { resId } = useParams();
-    useEffect(() => {
-        fetchMenu();
-    }, []);
-    const fetchMenu = async () => {
-        const data = await fetch(`${RESINFO_URL}${resId}`);
-        const json = await data.json();
-        setResInfo(json);
-    };
+    const resInfo = useRestaurantsMenu(resId);
+
+    const [showIndex, setShowIndex] = useState(0);
+
+    if (resInfo.length === 0) {
+        return <Shimmer />;
+    }
+
     const { name, cuisines, costForTwoMessage } =
-        resInfo?.data?.cards[2]?.card?.card?.info || {};
+        resInfo?.data?.cards[2]?.card?.card?.info;
 
     const { itemCards } =
         resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[1]
-            ?.card?.card || {};
+            ?.card?.card;
+    console.log(
+        "withoutCAtegory",
+        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
+    );
+    // console.log("category", resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
     console.log("resinfonew", itemCards);
-    return resInfo.length === 0 ? (
-        <Shimmer />
-    ) : (
-        <div className="infoDetailParent">
-            <h1>{name}</h1>
-            <p>
+    const category =
+        resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
+            (item) =>
+                item.card?.card?.["@type"] ===
+                "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
+        );
+    console.log("category", category);
+    return (
+        <div className="text-center">
+            <h1 className="font-bold my-6 text-2xl">{name}</h1>
+            <p className="font-medium">
                 {cuisines.join(", ")} - {costForTwoMessage}
             </p>
-
-            <h2>Menu</h2>
-            {itemCards.map((item) => {
-                const {
-                    name,
-                    price,
-                    isBestseller,
-                    ribbon,
-                    imageId,
-                    id,
-                    variantsV2,
-                } = item?.card?.info;
-
-                // ribbon: bottomBackgroundColor: "#b02331";
-                // text: "Bestseller";
-                // textColor: "#ffffff";
-                // topBackgroundColor: "#d53d4c";
-                return (
-                    <div className="detailCard" key={id}>
-                        <div className="detailCardText">
-                            <p>
-                                {isBestseller}
-                                {ribbon.text}
-                            </p>
-                            <li>{name}</li>
-                            <p>
-                                Rs.
-                                {price / 100 ||
-                                    variantsV2.pricingModels[0].price/100}
-                            </p>
-                        </div>
-                        <div>
-                            <img src={`${INFO_CDN}${imageId}`} />
-                        </div>
-                    </div>
-                );
-            })}
+            {/* categories accordions */}
+            {category.map((category, index) => (
+                //controlled component now
+                <RestaurantCategory
+                    key={category?.card?.card?.title}
+                    data={category?.card?.card}
+                    setShowIndex={() => setShowIndex(index)}
+                    isVisible={index === showIndex ? true : false}
+                />
+            ))}
         </div>
     );
 };

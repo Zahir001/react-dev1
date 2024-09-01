@@ -1,13 +1,17 @@
 import { useEffect, useState } from "react";
 import resListObj from "../utils/mockData";
-import RestaurantCard from "./RestaurantCard";
+import RestaurantCard, { withOpenLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Body = () => {
     const [resList, setResList] = useState([]);
     const [filteredRestraurant, setFilteredRestaurant] = useState([]);
     const [searcText, setSearchText] = useState("");
+
+    const onlnineStatus = useOnlineStatus();
+    const RestaurantOpen = withOpenLabel(RestaurantCard);
     useEffect(() => {
         fetchData();
     }, []);
@@ -17,7 +21,8 @@ const Body = () => {
         );
         const json = await data.json();
         console.log(
-            json.data.cards[1].card.card.gridElements.infoWithStyle.restaurants
+            json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+                ?.restaurants
         );
         setResList(
             json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
@@ -29,23 +34,34 @@ const Body = () => {
         );
     };
 
-    // //conditional rendering
-    // if(resList.length === 0){
-    //     return <Shimmer />
-    // }
-    return resList.length === 0 ? (
-        <Shimmer />
-    ) : (
-        <div className="body">
-            <div className="filter">
-                <div className="search">
+    if (onlnineStatus === false) {
+        return (
+            <h1>
+                Looks like you're offline!! Please check your internet
+                Connection !!!
+            </h1>
+        );
+    }
+    if (filteredRestraurant.length === 0) {
+        return (
+            <div>
+                <Shimmer />
+            </div>
+        );
+    }
+
+    return (
+        <div className="body w-11/12 m-auto">
+            <div className="filter flex py-2 gap-x-3 items-center my-6">
+                <div className="search flex gap-x-2">
                     <input
-                        className="search-box"
+                        className="border border-solid border-black"
                         type="text"
                         value={searcText}
                         onChange={(e) => setSearchText(e.target.value)}
                     />
                     <button
+                        className="px-4 py-1 bg-green-200 hover:bg-green-100 rounded-lg text-[16px]"
                         onClick={() => {
                             const filteredItem = resList.filter((res) =>
                                 res.info.name
@@ -59,7 +75,7 @@ const Body = () => {
                     </button>
                 </div>
                 <button
-                    className="filter-btn"
+                    className="px-4 py-1 rounded-lg bg-gray-300 hover:bg-gray-200"
                     onClick={() => {
                         const resListn = resList.filter(
                             (res) => res.info.avgRating > 4
@@ -70,14 +86,18 @@ const Body = () => {
                     Top rated Restaurants
                 </button>
             </div>
-            <div className="res-container">
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 mt-4">
                 {filteredRestraurant.map((restaurant) => {
                     return (
                         <Link
                             to={`/restaurants/${restaurant.info.id}`}
                             key={restaurant.info.id}
                         >
-                            <RestaurantCard resData={restaurant} />
+                            {restaurant.info.isOpen ? (
+                                <RestaurantOpen resData={restaurant}/>
+                            ) : (
+                                <RestaurantCard resData={restaurant} />
+                            )}
                         </Link>
                     );
                 })}
