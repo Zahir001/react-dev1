@@ -1,14 +1,17 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import resListObj from "../utils/mockData";
 import RestaurantCard, { withOpenLabel } from "./RestaurantCard";
 import Shimmer from "./Shimmer";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
+import UserContext from "../utils/UserContext";
 
 const Body = () => {
     const [resList, setResList] = useState([]);
     const [filteredRestraurant, setFilteredRestaurant] = useState([]);
     const [searcText, setSearchText] = useState("");
+
+    const { loggedInUser, setUserName } = useContext(UserContext);
 
     const onlnineStatus = useOnlineStatus();
     const RestaurantOpen = withOpenLabel(RestaurantCard);
@@ -85,6 +88,15 @@ const Body = () => {
                 >
                     Top rated Restaurants
                 </button>
+                <div>
+                    <label htmlFor="">UserName: </label>
+                    <input
+                        
+                        className="border border-black px-2"
+                        value={loggedInUser}
+                        onChange={(e) => setUserName(e.target.value)}
+                    />
+                </div>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-x-4 mt-4">
                 {filteredRestraurant.map((restaurant) => {
@@ -94,7 +106,7 @@ const Body = () => {
                             key={restaurant.info.id}
                         >
                             {restaurant.info.isOpen ? (
-                                <RestaurantOpen resData={restaurant}/>
+                                <RestaurantOpen resData={restaurant} />
                             ) : (
                                 <RestaurantCard resData={restaurant} />
                             )}

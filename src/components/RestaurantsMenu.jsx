@@ -25,7 +25,6 @@ const RestaurantsMenu = () => {
         "withoutCAtegory",
         resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards
     );
-    // console.log("category", resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards);
     console.log("resinfonew", itemCards);
     const category =
         resInfo?.data?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
