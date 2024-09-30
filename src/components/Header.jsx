@@ -44,15 +44,17 @@ const Header = () => {
                     <li>
                         <Link to={"/cart"}>Cart - {cartItem.length}</Link>
                     </li>
-                    <button
-                        onClick={() => {
-                            btnName === "Login"
-                                ? setBtnName("Logout")
-                                : setBtnName("Login");
-                        }}
-                    >
-                        {btnName}
-                    </button>
+                    <Link to={"/signup"}>
+                        <button
+                        // onClick={() => {
+                        //     btnName === "Login"
+                        //         ? setBtnName("Logout")
+                        //         : setBtnName("Login");
+                        // }}
+                        >
+                            SignUp
+                        </button>
+                    </Link>
                     <li className="font-bold">{loggedInUser}</li>
                 </ul>
             </div>
