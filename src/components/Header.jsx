@@ -1,7 +1,7 @@
 import React from "react";
 import { useEffect, useState, useContext } from "react";
-import { LOGO_URL } from "../utils/constants";
-import LOGO_URL from "../public/tandoori_fustion.png";
+// import { LOGO_URL } from "../utils/constants";
+// import LOGO_URL from "../public/tandoori_fustion.png";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../utils/useOnlineStatus";
 import { FaHamburger } from "react-icons/fa";
@@ -16,13 +16,13 @@ const Header = () => {
     const { loggedInUser } = useContext(UserContext);
 
     const cartItem = useSelector((store) => store.cart.items);
-    console.log(cartItem);
+    // console.log(cartItem);
     return (
         <div
             className={`header flex justify-between items-center bg-pink-100 shadow-lg `}
         >
             <div className="logo-container">
-                <img className="w-32 p-2" src={LOGO_URL} alt="" />
+                {/* <img className="w-32 p-2" src={LOGO_URL} alt="" /> */}
             </div>
 
             <div className={`${menuOpen ? "block" : "hidden"} lg:block`}>
@@ -55,6 +55,15 @@ const Header = () => {
                             SignUp
                         </button>
                     </Link>
+                    <button
+                        onClick={() => {
+                            btnName === "Login"
+                                ? setBtnName("Logout")
+                                : setBtnName("Login");
+                        }}
+                        >
+                            {btnName}
+                        </button>
                     <li className="font-bold">{loggedInUser}</li>
                 </ul>
             </div>

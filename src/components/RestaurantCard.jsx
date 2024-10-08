@@ -16,7 +16,7 @@ const RestaurantCard = ({ resData }) => {
     return (
         <>
             {/* <label htmlFor="">{isOpen ? "Open" : ""}</label> */}
-            <div className="res-card transform transition-transform duration-300 hover:scale-[0.95]">
+            <div data-testid="resCard" className="res-card transform transition-transform duration-300 hover:scale-[0.95]">
                 <img
                     className="rounded-md"
                     src={`${CDN_URL}${cloudinaryImageId}`}

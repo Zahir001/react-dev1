@@ -7,13 +7,14 @@ const ItemList = ({ items }) => {
     const handleAddItem = (item) => {
         // Add item to cart
         dispatch(addItem(item));
-        alert('Item added to cart');
+        // alert('Item added to cart');
     };
     return (
         <div>
             {items.map((item) => (
                 <div
-                    key={item?.card?.info?.id}
+                data-testid='foodItem'
+                    key={item?.card?.info?.id }
                     className="p-2 m-2 border-gray-300 border-b-2 text-left flex items-center"
                 >
                     <div className="flex flex-col w-9/12">

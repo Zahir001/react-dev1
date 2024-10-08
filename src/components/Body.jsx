@@ -23,10 +23,10 @@ const Body = () => {
             "https://www.swiggy.com/dapi/restaurants/list/v5?lat=28.57350&lng=77.32080&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING"
         );
         const json = await data.json();
-        console.log(
-            json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
-                ?.restaurants
-        );
+        // console.log(
+        //     json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
+        //         ?.restaurants
+        // );
         setResList(
             json?.data?.cards[1]?.card?.card?.gridElements?.infoWithStyle
                 ?.restaurants
@@ -58,6 +58,7 @@ const Body = () => {
             <div className="filter flex py-2 gap-x-3 items-center my-6">
                 <div className="search flex gap-x-2">
                     <input
+                        data-testid="testSearch"
                         className="border border-solid border-black"
                         type="text"
                         value={searcText}
@@ -81,7 +82,7 @@ const Body = () => {
                     className="px-4 py-1 rounded-lg bg-gray-300 hover:bg-gray-200"
                     onClick={() => {
                         const resListn = resList.filter(
-                            (res) => res.info.avgRating > 4
+                            (res) => res.info.avgRating > 4.4
                         );
                         setFilteredRestaurant(resListn);
                     }}
@@ -91,7 +92,6 @@ const Body = () => {
                 <div>
                     <label htmlFor="">UserName: </label>
                     <input
-                        
                         className="border border-black px-2"
                         value={loggedInUser}
                         onChange={(e) => setUserName(e.target.value)}

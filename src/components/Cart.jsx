@@ -10,9 +10,9 @@ const Cart = () => {
     const items = useSelector((store) => store.cart.items);
     const dispatch = useDispatch();
     const handleClearItem = () => {
-        if (window.confirm("Are you sure you want to clear the cart?")) {
+        // if (window.confirm("Are you sure you want to clear the cart?")) {
             dispatch(clearCart());
-        }
+        // }
     };
     return (
         <div>
